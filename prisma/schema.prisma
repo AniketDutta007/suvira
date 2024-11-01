@@ -18,12 +18,134 @@ enum Role {
   ADMIN
 }
 
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
 model User {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String          @unique
-  password      String
-  role          Role            @default(USER)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  logo      String
+  status    Status   @default(ACTIVE)
+  createdAt DateTime @default(now())
+  createdBy String
+  updatedAt DateTime @updatedAt
+  updatedBy String
+}
+
+model Feedback {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  author    String
+  rating    Int
+  comment   String
+  image     String
+  status    Status   @default(ACTIVE)
+  createdAt DateTime @default(now())
+  createdBy String
+  updatedAt DateTime @updatedAt
+  updatedBy String
+}
+
+model Service {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  logo      String
+  status    Status   @default(ACTIVE)
+  createdAt DateTime @default(now())
+  createdBy String
+  updatedAt DateTime @updatedAt
+  updatedBy String
+
+  products Product[]
+}
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String   @unique
+  description String
+  price       Float
+  image       String
+  status      Status   @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  createdBy   String
+  updatedAt   DateTime @updatedAt
+  updatedBy   String
+
+  serviceId String  @db.ObjectId
+  service   Service @relation(fields: [serviceId], references: [id])
+}
+
+enum QueryStatus {
+  OPEN
+  CLOSED
+}
+
+model Query {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  company   String
+  phone     String
+  query     String
+  status    QueryStatus @default(OPEN)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model JobPost {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  location    String
+  role        String[]
+  salary      Int?
+  status      Status   @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  createdBy   String
+  updatedAt   DateTime @updatedAt
+  updatedBy   String
+
+  applications JobApplication[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model JobApplication {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName            String
+  lastName             String?
+  email                String
+  phone                String
+  gender               Gender
+  address              String
+  pincode              String
+  highestQualification String
+  experience           Float
+  role                 String
+  currentCTC           Float
+  expectedCTC          Float
+  resume               String
+  coverLetter          String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  jobId String  @db.ObjectId
+  job   JobPost @relation(fields: [jobId], references: [id])
+
+  @@unique([jobId, email])
 }

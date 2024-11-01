@@ -56,7 +56,7 @@ export default function SignUp() {
 			}
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (error) {
-			console.log("An unexpected error occurred. Please try again.");
+			console.error("An unexpected error occurred. Please try again.");
 		}
 	};
 

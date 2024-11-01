@@ -18,7 +18,6 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 import { useTheme } from "next-themes";
-import { Button } from "./ui/button";
 import { handleSignOut } from "@/app/actions/auth";
 
 export function NavUser({

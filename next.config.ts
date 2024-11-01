@@ -7,7 +7,10 @@ const nextConfig: NextConfig = {
         DATABASE_URL: process.env.DATABASE_URL,
         PUBLIC_ROUTES: process.env.PUBLIC_ROUTES,
         AUTH_ROUTES: process.env.AUTH_ROUTES,
-    }
+    },
+    experimental: {
+        scrollRestoration: true,
+    },
 };
 
 export default nextConfig;
