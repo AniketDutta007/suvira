@@ -9,21 +9,19 @@ import {
 } from "@/components/ui/select";
 import { ArrowDownWideNarrowIcon } from "lucide-react";
 
-type SortSelectProps<E> = {
-	selectedCriteria: E[keyof E];
-	onChange: (criteria: E[keyof E]) => void;
-	criterias: E;
-};
-
-export default function SortSelect<E extends Record<string, string | number>>({
+export default function SortSelect<TSortCriteria extends string | string>({
 	selectedCriteria,
 	onChange,
 	criterias,
-}: SortSelectProps<E>) {
+}: {
+	selectedCriteria: TSortCriteria;
+	onChange: (criteria: TSortCriteria) => void;
+	criterias: TSortCriteria[];
+}) {
 	return (
 		<Select
 			value={String(selectedCriteria)}
-			onValueChange={(criteria) => onChange(criteria as E[keyof E])}
+			onValueChange={(criteria) => onChange(criteria as TSortCriteria)}
 		>
 			<SelectTrigger className="w-fit sm:w-[180px] px-5 py-4 ring-0 border-0 focus-visible:ring-offset-0 focus-visible:ring-0 border-none">
 				<div className="flex items-center gap-2">
@@ -39,9 +37,9 @@ export default function SortSelect<E extends Record<string, string | number>>({
 			<SelectContent>
 				<SelectGroup>
 					<SelectLabel>Sort By</SelectLabel>
-					{Object.values(criterias).map((value) => (
-						<SelectItem key={String(value)} value={String(value)}>
-							{String(value)}
+					{criterias.map((criteria) => (
+						<SelectItem key={criteria} value={criteria}>
+							{criteria}
 						</SelectItem>
 					))}
 				</SelectGroup>

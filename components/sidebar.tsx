@@ -36,6 +36,8 @@ export default function Sidebar({
 		const matchingKey = Object.keys(URL_MAPPING).find((key) =>
 			new RegExp(key).test(currentPath)
 		);
+		// If no matching key is found, return the current path
+		if (!matchingKey) return currentPath;
 		const title = matchingKey ? URL_MAPPING[matchingKey] : segment;
 
 		// Push title and href to breadcrumb data

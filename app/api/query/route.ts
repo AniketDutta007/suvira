@@ -1,11 +1,9 @@
 import { QueryStatusFilterCriteria as FilterCriteria, QuerySortCriteria as SortCriteria } from "@/constants";
 import { NextRequest, NextResponse } from "next/server";
-
 import { prisma } from "@/config/prisma";
+import { $Enums } from "@prisma/client";
 
-export async function GET(
-    request: NextRequest,
-) {
+export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
         const search = searchParams.get("search") || undefined;
@@ -13,7 +11,7 @@ export async function GET(
         const sort = (searchParams.get("sort") as SortCriteria) || SortCriteria.Latest;
         const page = parseInt(searchParams.get("page") || "1", 10) || 1;
         const limit = parseInt(searchParams.get("limit") || "12", 10) || 12;
-        const paginate = Boolean(searchParams.get("paginate") === 'true');
+        const paginate = searchParams.get("paginate") === 'true';
 
         const queries = await prisma.query.findMany({
             ...(
@@ -34,22 +32,26 @@ export async function GET(
                         { query: { contains: search, mode: 'insensitive' } },
                     ],
                 } : {}),
-                ...status == FilterCriteria.Open ? { status: 'OPEN' } : status == FilterCriteria.Closed ? { status: 'CLOSED' } : {},
+                ...(status == FilterCriteria.Open ? { status: $Enums.QueryStatus.OPEN } : {}),
+                ...(status == FilterCriteria.Closed ? { status: $Enums.QueryStatus.CLOSED } : {}),
             },
             orderBy: {
-                ...sort == SortCriteria.Latest ? { updatedAt: 'desc' } : {},
-                ...sort == SortCriteria.Name ? { name: 'asc' } : {},
+                ...(sort == SortCriteria.Latest ? { updatedAt: 'desc' } : {}),
+                ...(sort == SortCriteria.Name ? { name: 'asc' } : {}),
             }
         });
 
         return NextResponse.json({
             success: true,
-            data: queries,
+            data: queries || [],
             error: null,
         }, {
             status: 200,
         });
+
     } catch (error) {
+        console.log('Error:', error);
+
         console.error(error);
         return NextResponse.json({
             success: false,

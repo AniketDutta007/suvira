@@ -9,6 +9,7 @@ import {
 	MailQuestionIcon,
 	MessageSquareQuoteIcon,
 	NotebookPenIcon,
+	PlusIcon,
 	StickyNoteIcon,
 	UserRoundIcon,
 } from "lucide-react";
@@ -52,17 +53,17 @@ const teams: {
 const menu = [
 	{
 		title: "Blogs",
-		url: "/blogs",
+		url: "/dashboard/blogs",
 		icon: NotebookPenIcon,
 	},
 	{
 		title: "Clients",
-		url: "/clients",
+		url: "/dashboard/clients",
 		icon: UserRoundIcon,
 	},
 	{
 		title: "Feedback",
-		url: "/feedbacks",
+		url: "/dashboard/feedbacks",
 		icon: MessageSquareQuoteIcon,
 	},
 	{
@@ -70,13 +71,18 @@ const menu = [
 		icon: BriefcaseBusiness,
 		items: [
 			{
+				title: "New Post Entry",
+				url: "/dashboard/job/post/entry",
+				icon: PlusIcon,
+			},
+			{
 				title: "Posts",
-				url: "/jobs",
+				url: "/dashboard/job/posts",
 				icon: StickyNoteIcon,
 			},
 			{
 				title: "Responses",
-				url: "/job/responses",
+				url: "/dashboard/job/responses",
 				icon: BookAIcon,
 			},
 		],

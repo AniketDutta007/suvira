@@ -103,17 +103,46 @@ model Query {
   updatedAt DateTime    @updatedAt
 }
 
+enum WorkUnit {
+  HOUR
+  DAY
+  WEEK
+  MONTH
+  YEAR
+}
+
+enum WorkMode {
+  ONSITE
+  REMOTE
+  HYBRID
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
 model JobPost {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
-  location    String
-  role        String[]
+  // not null for onsite or hybrid work modes
+  location    String?
+  mode        WorkMode       @default(REMOTE)
+  type        EmploymentType
+  role        String
+  experience  Int            @default(0)
   salary      Int?
-  status      Status   @default(ACTIVE)
-  createdAt   DateTime @default(now())
+  salaryUnit  WorkUnit       @default(YEAR)
+  // not null for contract or internships or part-time
+  tenure      Int?
+  tenureUnit  WorkUnit       @default(YEAR)
+  status      Status         @default(ACTIVE)
+  createdAt   DateTime       @default(now())
   createdBy   String
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime       @updatedAt
   updatedBy   String
 
   applications JobApplication[]
@@ -141,6 +170,8 @@ model JobApplication {
   expectedCTC          Float
   resume               String
   coverLetter          String
+  favorite             Boolean  @default(false)
+  declined             Boolean  @default(false)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
