@@ -1,9 +1,8 @@
-import { NextApiRequest } from 'next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 import { prisma } from '@/config/prisma';
 
-export async function DELETE(request: NextApiRequest, { params }: { params: Promise<{ id: string; }>; }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string; }>; }) {
     try {
         const id = (await params).id;
         const query = await prisma.query.findUnique({
