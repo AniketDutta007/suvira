@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import Video from "next-video";
+import BannerVideo from "/videos/banner_video.mp4";
 
 const clients = [
 	{
@@ -191,8 +193,17 @@ export default function Home() {
 			<Loader status={loading} />
 			<main className="w-full">
 				<section className="relative w-full h-screen">
-					<video
-						src="/banner_video.mp4"
+					{/* <video
+						autoPlay
+						muted
+						loop
+						className="banner-video w-full h-full object-cover"
+						ref={videoRef}
+					>
+						<source src="/banner.mp4" type="video/mp4" />
+					</video> */}
+					<Video
+						src={BannerVideo}
 						autoPlay
 						muted
 						loop
@@ -330,7 +341,12 @@ export default function Home() {
 					</div>
 					<div className="lg:grow h-full w-full p-5 flex flex-col md:flex-row justify-stretch items-center gap-3 max-w-[1000px] aspect-video">
 						<div className="service__card h-full w-full relative rounded-xl overflow-hidden duration-500">
-							<div className="w-full h-full p-4 flex justify-center items-center bg-[url('/oil-refinery.jpg')] bg-cover bg-center z-10 aspect-[3/4] relative">
+							<div
+								className="w-full h-full p-4 flex justify-center items-center bg-cover bg-center z-10 aspect-[3/4] relative"
+								style={{
+									background: "url('/oil-refinery.jpg')",
+								}}
+							>
 								<div className="label absolute bottom-0 left-0 ml-4 mb-4 md:ml-8 md:mb-6 px-3 text-lime-400 font-extrabold tracking-wide bg-slate-900/50">
 									Service 1
 								</div>
@@ -358,7 +374,12 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="service__card h-full w-full relative rounded-xl overflow-hidden duration-500">
-							<div className="w-full h-full p-4 flex justify-center items-center bg-[url('/chemicals.jpg')] bg-cover bg-center z-10 aspect-[3/4] relative">
+							<div
+								className="w-full h-full p-4 flex justify-center items-center bg-cover bg-center z-10 aspect-[3/4] relative"
+								style={{
+									background: "url('/chemicals.jpg')",
+								}}
+							>
 								<div className="label absolute bottom-0 left-0 ml-4 mb-4 md:ml-8 md:mb-6 px-3 text-lime-400 font-extrabold tracking-wide bg-slate-900/50">
 									Service 2
 								</div>
@@ -386,9 +407,18 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="service__card h-full w-full relative rounded-xl overflow-hidden duration-500">
-							<div className="w-full h-full p-4 flex justify-center items-center bg-[url('/solar.jpg')] bg-cover bg-center z-10 aspect-[3/4] relative">
-								<div className="label absolute bottom-0 left-0 ml-4 mb-4 md:ml-8 md:mb-6 px-3 text-lime-400 font-extrabold tracking-wide bg-slate-900/50">
-									Service 3
+							<div className="relative w-full h-full p-4 flex justify-center items-center z-10 aspect-[3/4]">
+								<Image
+									src="/solar.jpg"
+									layout="fill"
+									objectFit="cover"
+									alt="Background"
+									className="z-0"
+								/>
+								<div className="relative z-10">
+									<div className="label absolute bottom-0 left-0 ml-4 mb-4 md:ml-8 md:mb-6 px-3 text-lime-400 font-extrabold tracking-wide bg-slate-900/50">
+										Service 3
+									</div>
 								</div>
 							</div>
 							<div className="absolute top-0 left-0 w-1/2 h-full bg-lime-400 -z-10 aspect-[3/4] flex flex-col gap-5 items-start justify-start p-8">

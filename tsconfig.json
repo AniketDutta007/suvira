@@ -24,6 +24,6 @@
     "types": [],
     "typeRoots": ["./src/types", "./node_modules/@types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "env.d.ts", "types.d.ts"],
+  "include": ["video.d.ts", "video.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "env.d.ts", "types.d.ts"],
   "exclude": ["node_modules"]
 }
