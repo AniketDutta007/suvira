@@ -16,10 +16,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { signUpSchema } from "@/form-schema/auth";
-import LoadingButton from "@/components/loading-button";
+import LoadingButton from "@/components/dashboard/loading-button";
 import { handleSignUp } from "@/app/actions/auth";
 import { useState, useEffect } from "react";
-import ErrorMessage from "@/components/error-message";
+import ErrorMessage from "@/components/dashboard/error-message";
 
 import { useRouter, useSearchParams } from "next/navigation";
 

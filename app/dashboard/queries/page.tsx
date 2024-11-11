@@ -1,6 +1,6 @@
 "use client";
 
-import QueryScreen from "@/components/query-screen";
+import QueryScreen from "@/components/dashboard/query-screen";
 import { useEffect, useState } from "react";
 import {
 	QueryStatusFilterCriteria as StatusFilterCriteria,
